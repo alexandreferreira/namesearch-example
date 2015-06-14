@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block header_scripts %}
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Search for a Log</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    <div class="row">
+        <div class="form">
+                    <select id="name-search" class="js-data-example-ajax form-control" style="width: 50%">
+                        </select>
+                <button id="edit" class="btn">Edit</button>
+                </div>
+    </div>
+    </div>
+    <!-- /.container-fluid -->
+{% endblock %}
+
+{% block after_content %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+<script type="text/javascript">
+
+$("#edit").click(function(element) {
+    var id = $( "#name-search" ).val();
+    if (id) {
+        window.location.href = "/entry/edit/"+id.toString()+"/";
+    } else {
+        alert("Select a name first")
+    }
+
+});
+
+function formatRepo (data) {
+      if (data.loading) return data.text;
+      data = "ID: " + data.id + " Name: " + data.text + " Action: " + data.type;
+      return data;
+    }
+    function formatRepoSelection (data) {
+      return "ID: " + data.id + " Name: " + data.text;
+    }
+
+$(".js-data-example-ajax").select2({
+    placeholder: 'Search Name In Logs',
+  ajax: {
+    url: "{% url 'log_search_api' %}",
+    dataType: 'json',
+    data: function (params) {
+      return {
+        q: params.term,
+        page: params.page
+
+      };
+    },
+    processResults: function (data, params) {
+      // parse the results into the format expected by Select2.
+      // since we are using custom formatting functions we do not need to
+      // alter the remote JSON data
+      params.page = params.page || 1;
+      return {
+        results: $.map(data.results, function(item) {
+            return {id: item.entry.toString(), text: item.text, type: item.log_type}
+        }),
+        'pagination': {
+            more: data.has_next
+        }
+      };
+    },
+    cache: true
+  },
+  minimumInputLength: 3,
+  templateResult: formatRepo, // omitted for brevity, see the source of this page
+  templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+
+
+});
+</script>
+{% endblock %}
