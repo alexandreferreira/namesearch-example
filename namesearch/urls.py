@@ -3,7 +3,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from core.api import SearchEntryAPIView, SearchLogAPIView
-from core.views import Home, ListEntries, UpdateEntry, CreateEntry, DeleteEntry, SearchEntry, SearchLog
+from core.views import Home, ListEntries, UpdateEntry, CreateEntry, DeleteEntry, SearchEntry, SearchLog, ListLog
 
 admin.autodiscover()
 
@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^entry/search/$', SearchEntry.as_view(), name='entry_search'),
 
     url(r'^log/search/$', SearchLog.as_view(), name='log_search'),
+    url(r'^log/$', ListLog.as_view(), name='log_list'),
 
     url(r'^api/entry/search/$', SearchEntryAPIView.as_view(), name='entry_search_api'),
     url(r'^api/log/search/$', SearchLogAPIView.as_view(), name='log_search_api'),

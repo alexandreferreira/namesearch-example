@@ -3,7 +3,7 @@ from django.views.generic import ListView, UpdateView
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, DeleteView
 from core.forms import EntryForm
-from core.models import Entry
+from core.models import Entry, Log
 
 __author__ = 'alexandreferreira'
 
@@ -15,6 +15,13 @@ class SearchEntry(TemplateView):
 
 class SearchLog(TemplateView):
     template_name = "search/search_log.html"
+
+class ListLog(ListView):
+    model = Log
+    paginate_by = 500
+    template_name = "entry/entry_list.html"
+    queryset = Log.objects.all()
+    context_object_name = 'logs'
 
 class ListEntries(ListView):
     model = Entry
