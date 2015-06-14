@@ -89,6 +89,10 @@ CELERYBEAT_SCHEDULE = {
     'import_names': {
         'task': 'core.tasks.import_names',
         'schedule': timedelta(minutes=2)
+    },
+    'update_index': {
+        'task': 'core.tasks.update_index',
+        'schedule': timedelta(minutes=5)
     }
 }
 CELERY_TIMEZONE = 'UTC'
