@@ -19,7 +19,7 @@ class SearchLog(TemplateView):
 class ListLog(ListView):
     model = Log
     paginate_by = 500
-    template_name = "entry/entry_list.html"
+    template_name = "entry/log_list.html"
     queryset = Log.objects.all()
     context_object_name = 'logs'
 
