@@ -76,7 +76,7 @@ DATABASES = {
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'ENGINE': 'namesearch.search_backend.CustomElasticsearchSearchEngine',
         'URL': os.getenv('HAYSTACK_URL'),
         'INDEX_NAME': os.getenv('HAYSTACK_INDEX'),
     },
