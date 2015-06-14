@@ -17,6 +17,8 @@ class EntryIndex(indexes.SearchIndex, indexes.Indexable):
         """Used when the entire index for model is updated."""
         return self.get_model().objects.all()
 
+    def get_updated_field(self):
+        return "updated"
 
 class LogIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.NgramField(document=True, model_attr='old_text')
@@ -30,4 +32,7 @@ class LogIndex(indexes.SearchIndex, indexes.Indexable):
 
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
-        return self.get_model().objects.filter(updated__lte=timezone.now()).prefetch_related("entry")
+        return self.get_model().objects.all().prefetch_related("entry")
+
+    def get_updated_field(self):
+        return "updated"

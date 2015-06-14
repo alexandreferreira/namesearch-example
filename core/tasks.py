@@ -36,5 +36,5 @@ def import_names():
 
 @shared_task
 def update_index():
-    from haystack.management.commands import update_index
-    update_index.Command().handle()
+    from django.core.management import call_command
+    call_command('update_index', age=1, interactive=False)

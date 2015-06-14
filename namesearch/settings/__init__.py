@@ -128,6 +128,10 @@ ELASTICSEARCH_INDEX_SETTINGS = {
 
 BROKER_URL = os.getenv('BROKER_URL')
 
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
 CELERYBEAT_SCHEDULE = {
     'import_names': {
         'task': 'core.tasks.import_names',
@@ -135,7 +139,7 @@ CELERYBEAT_SCHEDULE = {
     },
     'update_index': {
         'task': 'core.tasks.update_index',
-        'schedule': timedelta(minutes=5)
+        'schedule': timedelta(minutes=10)
     }
 }
 CELERY_TIMEZONE = 'UTC'
