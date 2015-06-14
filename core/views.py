@@ -20,7 +20,7 @@ class ListLog(ListView):
     model = Log
     paginate_by = 500
     template_name = "log/log_list.html"
-    queryset = Log.objects.all()
+    queryset = Log.objects.all().prefetch_related("entry")
     context_object_name = 'logs'
 
 class ListEntries(ListView):
