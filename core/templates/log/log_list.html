@@ -28,10 +28,10 @@
                             <tbody>
                             {% for log in logs %}
                                 <tr class="{% cycle 'even' 'odd' %}">
-                                    <td><a href="{% url 'entry_update' log.entry.number %}"> {{ entry.log.entry.number }}</a></td>
+                                    <td><a href="{% url 'entry_update' log.entry.number %}"> {{ log.entry.number }}</a></td>
                                     <td>{{ log.entry.text }}</td>
                                     <td>{{ log.old_text }}</td>
-                                    <td>{{ log.entry.log_type }}</td>
+                                    <td>{{ log.log_type }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
