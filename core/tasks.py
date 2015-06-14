@@ -5,8 +5,8 @@ __author__ = 'alexandreferreira'
 
 
 @shared_task
-def register_log_entry_create(number, text):
-    Log.objects.register_create_entry(number, text)
+def register_log_entry_create(number):
+    Log.objects.register_create_entry(number)
 
 
 @shared_task

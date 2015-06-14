@@ -15,11 +15,12 @@ class EntryForm(ModelForm):
         super(EntryForm, self).__init__(**kwargs)
 
     def save(self, commit=True):
-        entry = super(EntryForm, self).save(commit=commit)
         if self.created:
-            register_log_entry_create.delay(entry.number, entry.text)
+            register_log_entry_create.delay(self.instance.number, self.instance.text)
         else:
-            register_log_entry_update.delay(entry.number, entry.text)
+            old_entry = Entry.objects.get(number=self.instance.number)
+            register_log_entry_update.delay(old_entry.number, old_entry.text)
+        return super(EntryForm, self).save(commit=commit)
 
     class Meta:
         model = Entry
