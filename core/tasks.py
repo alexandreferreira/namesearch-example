@@ -37,4 +37,4 @@ def import_names():
 @shared_task
 def update_index():
     from django.core.management import call_command
-    call_command('update_index', age=1, interactive=False)
+    call_command('update_index', interactive=False)

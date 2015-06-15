@@ -139,7 +139,7 @@ CELERYBEAT_SCHEDULE = {
     },
     'update_index': {
         'task': 'core.tasks.update_index',
-        'schedule': timedelta(minutes=10)
+        'schedule': timedelta(minutes=60)
     }
 }
 CELERY_TIMEZONE = 'UTC'
